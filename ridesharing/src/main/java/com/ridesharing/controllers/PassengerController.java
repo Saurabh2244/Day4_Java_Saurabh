@@ -16,28 +16,28 @@ public class PassengerController {
     @Autowired
     private PassengerRepository passengerRepository;
 
-    // 1️⃣ Register a new passenger
+    // Register a new passenger
     @PostMapping
     public ResponseEntity<Passenger> registerPassenger(@RequestBody Passenger passenger) {
         Passenger savedPassenger = passengerRepository.save(passenger);
         return ResponseEntity.ok(savedPassenger);
     }
 
-    // 2️⃣ Get all passengers
+    //  Get all passengers
     @GetMapping
     public ResponseEntity<List<Passenger>> getAllPassengers() {
         List<Passenger> passengers = passengerRepository.findAll();
         return ResponseEntity.ok(passengers);
     }
 
-    // 3️⃣ Get a passenger by ID
+    //  Get a passenger by ID
     @GetMapping("/{id}")
     public ResponseEntity<Passenger> getPassengerById(@PathVariable Long id) {
         Optional<Passenger> passenger = passengerRepository.findById(id);
         return passenger.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 4️⃣ Update a passenger
+    //  Update a passenger
     @PutMapping("/{id}")
     public ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @RequestBody Passenger updatedPassenger) {
         return passengerRepository.findById(id).map(passenger -> {
@@ -51,7 +51,7 @@ public class PassengerController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 5️⃣ Delete a passenger
+    // Delete a passenger
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
         if (passengerRepository.existsById(id)) {
