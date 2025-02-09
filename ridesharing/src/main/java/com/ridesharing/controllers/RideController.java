@@ -24,7 +24,7 @@ public class RideController {
     @Autowired
     private PassengerRepository passengerRepository;
 
-    // 1️⃣ Request a new ride
+    // Request a new ride
     @PostMapping
     public ResponseEntity<Ride> createRide(@RequestParam Long passengerId,
                                            @RequestParam String startLocation,
@@ -55,13 +55,13 @@ public class RideController {
         return ResponseEntity.badRequest().build();
     }
 
-    // 2️⃣ Get all rides
+    // Get all rides
     @GetMapping
     public ResponseEntity<List<Ride>> getAllRides() {
         return ResponseEntity.ok(rideRepository.findAll());
     }
 
-    // 3️⃣ Get a specific ride by ID
+    //  Get a specific ride by ID
     @GetMapping("/{id}")
     public ResponseEntity<Ride> getRideById(@PathVariable Long id) {
         return rideRepository.findById(id)
@@ -69,7 +69,7 @@ public class RideController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 4️⃣ Update Ride Status
+    // Update Ride Status
     @PatchMapping("/{id}/status")
     public ResponseEntity<Ride> updateRideStatus(@PathVariable Long id, @RequestParam RideStatus status) {
         return rideRepository.findById(id).map(ride -> {
@@ -87,7 +87,7 @@ public class RideController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 5️⃣ Delete a ride
+    //  Delete a ride
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRide(@PathVariable Long id) {
         if (rideRepository.existsById(id)) {
@@ -97,7 +97,7 @@ public class RideController {
         return ResponseEntity.notFound().build();
     }
 
-    // 📌 Fare Calculation (Basic Example)
+    // Fare Calculation 
     private double calculateFare(String startLocation, String endLocation) {
         return Math.random() * 50 + 10; // Generates a fare between 10 and 60
     }
