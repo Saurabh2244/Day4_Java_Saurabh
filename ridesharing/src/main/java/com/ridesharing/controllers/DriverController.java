@@ -16,28 +16,28 @@ public class DriverController {
     @Autowired
     private DriverRepository driverRepository;
 
-    // 1️⃣ Register a new driver
+    // Register a new driver
     @PostMapping
     public ResponseEntity<Driver> registerDriver(@RequestBody Driver driver) {
         Driver savedDriver = driverRepository.save(driver);
         return ResponseEntity.ok(savedDriver);
     }
 
-    // 2️⃣ Get all drivers
+    // Get all drivers
     @GetMapping
     public ResponseEntity<List<Driver>> getAllDrivers() {
         List<Driver> drivers = driverRepository.findAll();
         return ResponseEntity.ok(drivers);
     }
 
-    // 3️⃣ Get a driver by ID
+    // Get a driver by ID
     @GetMapping("/{id}")
     public ResponseEntity<Driver> getDriverById(@PathVariable Long id) {
         Optional<Driver> driver = driverRepository.findById(id);
         return driver.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 4️⃣ Update a driver
+    // Update a driver
     @PutMapping("/{id}")
     public ResponseEntity<Driver> updateDriver(@PathVariable Long id, @RequestBody Driver updatedDriver) {
         return driverRepository.findById(id).map(driver -> {
@@ -52,7 +52,7 @@ public class DriverController {
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // 5️⃣ Delete a driver
+    // Delete a driver
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDriver(@PathVariable Long id) {
         if (driverRepository.existsById(id)) {
@@ -62,7 +62,7 @@ public class DriverController {
         return ResponseEntity.notFound().build();
     }
 
-    // 6️⃣ Update Driver Availability
+    // Update Driver Availability
     @PatchMapping("/{id}/availability")
     public ResponseEntity<Driver> updateDriverAvailability(@PathVariable Long id, @RequestParam boolean available) {
         return driverRepository.findById(id).map(driver -> {
